@@ -2,6 +2,7 @@
 import React from 'react';
 import Sidebar from '@/components/Sidebar';
 import Navbar from '@/components/Navbar';
+import Geekforgeeks from '@/components/docs-section/Geekforgeeks';
 
 function page() {
     return (
@@ -22,8 +23,7 @@ function page() {
                 <div className="block lg:hidden w-full mb-4">
                     <Navbar />
                 </div>
-                <h1 className="text-3xl font-bold mb-2">Docs</h1>
-                <p className="text-base text-gray-300">Welcome to the docs page. click on pages you want to visit</p>
+                <Geekforgeeks />
             </main>
         </div>
     );
