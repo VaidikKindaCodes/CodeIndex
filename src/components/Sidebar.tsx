@@ -24,10 +24,6 @@ const sideitems = [
     link: "/docs/geekforgeeks",
   },
   {
-    name: "HackerRank",
-    link: "/docs/hackerrank",
-  },
-  {
     name: "AtCoder",
     link: "/docs/atcoder",
   },

@@ -25,10 +25,6 @@ function NavItems() {
       link: "/docs/geekforgeeks"
     },
     {
-      name: "HackerRank",
-      link: "/docs/hcakerrank"
-    },
-    {
       name: "AtCoder",
       link: "/docs/atcoder"
     },
