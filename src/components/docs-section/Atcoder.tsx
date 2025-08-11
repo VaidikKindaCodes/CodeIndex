@@ -3,77 +3,80 @@ import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { highlightCode } from "@/utils/shikiHighlighter";
 
-function Atcoder() {
+export default function Atcoder() {
   const [baseUrl, setBaseUrl] = useState("");
+  const [html, setHtml] = useState<string>("");
 
   useEffect(() => {
-    const url = `${window.location.protocol}//${window.location.host}`;
-    setBaseUrl(url);
+    setBaseUrl(`${window.location.protocol}//${window.location.host}`);
   }, []);
 
-  const finalUrl = baseUrl + "/api/atcoder?username=<username>";
-  function copyToClipBoard() {
+  const finalUrl = `${baseUrl}/api/atcoder?username=<username>`;
+
+  const copyToClipBoard = () => {
     navigator.clipboard.writeText(finalUrl);
     toast.success("Copied to clipboard!");
-  }
-  const code = `
-    data: {
-            "username": "tourist",
-            "rating": "4229",
-            "rank": "1st",
-            "rounds": "66"
-           }
-`;
-  const [Html, setHtml] = useState<string>("");
+  };
+
+  const code = `data: {
+  "username": "tourist",
+  "rating": "4229",
+  "rank": "1st",
+  "rounds": "66"
+}`;
+
   useEffect(() => {
-    async function helper() {
-      const html = await highlightCode(code, "ts", "nord");
-      setHtml(html);
-    }
-    helper();
+    (async () => {
+      const highlighted = await highlightCode(code, "ts", "nord");
+      setHtml(highlighted);
+    })();
   }, []);
 
   return (
-    <div className="min-h-screen w-full  backdrop-blur-md flex flex-col items-center p-8">
-      <div className="bg-white/90 dark:bg-zinc-900/80 shadow-xl rounded-2xl p-8 max-w-3xl w-full">
-        <h2 className="text-4xl text-center font-extrabold text-orange-500 dark:text-orange-300 mb-4 tracking-tight drop-shadow">
+    <div className="min-h-screen w-full backdrop-blur-md flex flex-col items-center p-4 sm:p-8">
+      <div className="bg-white/90 dark:bg-zinc-900/80 shadow-xl rounded-2xl p-6 sm:p-8 w-full max-w-3xl">
+        <h2 className="text-2xl sm:text-4xl text-center font-extrabold text-orange-500 dark:text-orange-300 mb-4 tracking-tight drop-shadow">
           <span className="inline-block align-middle mr-2">🏆</span>
           AtCoder API Documentation
         </h2>
-        <p className="mt-3 max-w-2xl text-center text-lg text-zinc-700 dark:text-zinc-200">
+
+        <p className="mt-3 text-center text-base sm:text-lg text-zinc-700 dark:text-zinc-200">
           Effortlessly fetch and display your{" "}
-          <span className="font-semibold  text-orange-500 dark:text-orange-400">
+          <span className="font-semibold text-orange-500 dark:text-orange-400">
             AtCoder
           </span>{" "}
-          profile stats with our API. Retrieve your total problems solved and
-          more. Enter your AtCoder username below and copy the generated API
-          link.
+          profile stats with our API. Retrieve your total problems solved and more.
+          Enter your AtCoder username below and copy the generated API link.
         </p>
-        <div className="mt-8 w-full max-w-xl mx-auto flex flex-col items-center">
+
+        {/* API Link Section */}
+        <div className="mt-6 sm:mt-8 w-full flex flex-col items-center">
           <label
-            htmlFor="leetcode-link"
-            className="mb-2 font-medium text-lg text-zinc-800 dark:text-zinc-100"
+            htmlFor="atcoder-link"
+            className="mb-2 font-medium text-base sm:text-lg text-zinc-800 dark:text-zinc-100"
           >
             AtCoder Profile API Link
           </label>
-          <div className="flex w-full">
+            <div className="flex flex-col sm:flex-row w-full max-w-xl">
             <input
-              id="Atcoder-link"
+              id="atcoder-link"
               type="text"
-              className="flex-1 px-4 py-2 rounded-l-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 dark:bg-zinc-800 dark:text-white"
-              placeholder={finalUrl}
-              disabled
+              value={finalUrl}
+              readOnly
+              className="flex-1 px-3 py-2 sm:px-4 sm:py-2 rounded-t-md sm:rounded-l-md sm:rounded-tr-none border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 dark:bg-zinc-800 dark:text-white text-sm sm:text-base overflow-x-auto break-all w-full"
             />
             <button
               type="button"
-              className="px-4 py-2 bg-gradient-to-r from-orange-400 to-amber-500 text-white rounded-r-md hover:from-orange-500 hover:to-orange-500 transition font-semibold shadow"
               onClick={copyToClipBoard}
+              className="px-3 sm:px-4 py-2 bg-gradient-to-r from-orange-400 to-amber-500 text-white rounded-b-md sm:rounded-r-md sm:rounded-bl-none hover:from-orange-500 hover:to-orange-500 transition font-semibold shadow text-sm sm:text-base w-full sm:w-auto"
             >
               Copy
             </button>
-          </div>
+            </div>
         </div>
-        <div className="mt-10 max-w-2xl mx-auto text-left text-base">
+
+        {/* Usage Section */}
+        <div className="mt-8 sm:mt-10 text-left text-sm sm:text-base">
           <h3 className="font-semibold mb-2 text-orange-500 dark:text-orange-300 text-lg">
             Usage:
           </h3>
@@ -86,32 +89,28 @@ function Atcoder() {
               with your AtCoder username.
             </li>
             <li>
-              Send a <span className="font-semibold">GET</span> request to the
-              generated URL.
+              Send a <span className="font-semibold">GET</span> request to the generated URL.
             </li>
           </ul>
-          <h3 className="font-semibold mt-6 mb-2 text-orange-300 dark:text-amber-500text-lg">
+
+          <h3 className="font-semibold mt-6 mb-2 text-orange-500 dark:text-amber-400 text-lg">
             The JSON Response will look as follows:
           </h3>
-          <div className="rounded-lg overflow-hidden shadow-lg border border-zinc-200 dark:border-zinc-700 my-4">
+          <div className="rounded-lg overflow-x-auto shadow-lg border border-zinc-200 dark:border-zinc-700 my-4">
             <div
-              className="shiki overflow-x-auto text-base leading-relaxed rounded-lg p-4 bg-gray-900 border border-gray-800"
+              className="shiki text-sm sm:text-base leading-relaxed rounded-lg p-4 bg-gray-900 border border-gray-800"
               style={{
-                fontFamily:
-                  "Fira Mono, Menlo, Monaco, 'Courier New', monospace",
+                fontFamily: "Fira Mono, Menlo, Monaco, 'Courier New', monospace",
               }}
-              dangerouslySetInnerHTML={{ __html: Html }}
+              dangerouslySetInnerHTML={{ __html: html }}
             />
           </div>
 
-          <p className="mt-8 max-w-2xl text-center text-lg text-zinc-700 dark:text-zinc-200">
-            Use this data to beautifully showcase your AtCoder coding stats on
-            your website!
+          <p className="mt-6 sm:mt-8 text-center text-base sm:text-lg text-zinc-700 dark:text-zinc-200">
+            Use this data to beautifully showcase your AtCoder coding stats on your website!
           </p>
         </div>
       </div>
     </div>
   );
 }
-
-export default Atcoder;
