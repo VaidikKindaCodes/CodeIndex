@@ -61,7 +61,7 @@ function Navbar() {
             aria-label="Toggle menu"
           >
             <img
-              src={isOpen ? "assets/close.svg" : "assets/menu.svg"}
+              src={isOpen ? "/assets/close.svg" : "/assets/menu.svg"}
               alt=""
               className="w-6 h-6"
             />

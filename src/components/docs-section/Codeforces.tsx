@@ -40,7 +40,7 @@ function Codeforces() {
         <div className="min-h-screen w-full  backdrop-blur-md flex flex-col items-center p-8">
             <div className="bg-white/90 dark:bg-zinc-900/80 shadow-xl rounded-2xl p-8 max-w-3xl w-full">
                 <h2 className="text-4xl text-center font-extrabold text-blue-500 dark:text-blue-300 mb-4 tracking-tight drop-shadow">
-                    <span className="inline-block align-middle mr-2">🏆</span>
+                    <span className="inline-block align-middle mr-2">👨🏻‍💻</span>
                     Codeforces API Documentation
                 </h2>
                 <p className="mt-3 max-w-2xl text-center text-lg text-zinc-700 dark:text-zinc-200">

@@ -17,21 +17,21 @@ export async function GET(request: Request) {
 
     const $ = cheerio.load(data);
 
-    const name = $(".profile_name").first().text().trim();
-
-    const institute = $(".profile_inst").first().text().trim();
-
-    const problemsSolved = $("div.score_card_value").first().text().trim();
-
-    const rank = $(".rankNum").first().text().trim();
+    const institute = $("div.educationDetails_head_left--text__tgi9I").first().text().trim();
+    const codingScore = $("div.scoreCard_head_left--score__oSi_x").eq(0).first().text().trim();
+    const problemsSolved = $("div.scoreCard_head_left--score__oSi_x").eq(1).first().text().trim();
+    const contestRating=  $("div.scoreCard_head_left--score__oSi_x").eq(2).first().text().trim();
+    const rankText = $("span.educationDetails_head_left_userRankContainer--text__wt81s").first().text().trim();
+    const instituterank = rankText.replace(/\D/g, "");       
 
     return Response.json({
       success: true,
       username,
-      name,
       institute,
+      codingScore,
       problemsSolved,
-      rank
+      contestRating,
+      instituterank
     });
   } catch (error) {
     const axiosError = error as AxiosError;
