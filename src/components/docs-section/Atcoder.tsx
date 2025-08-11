@@ -11,7 +11,7 @@ function Atcoder() {
     setBaseUrl(url);
   }, []);
 
-  const finalUrl = baseUrl + "/atcoder?username=<username>";
+  const finalUrl = baseUrl + "/api/atcoder?username=<username>";
   function copyToClipBoard() {
     navigator.clipboard.writeText(finalUrl);
     toast.success("Copied to clipboard!");

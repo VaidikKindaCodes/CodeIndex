@@ -11,7 +11,7 @@ function GeekForGeeks() {
     setBaseUrl(url);
   }, []);
 
-  const finalUrl = baseUrl + "/geekforgeeks?username=<username>";
+  const finalUrl = baseUrl + "/api/geekforgeeks?username=<username>";
   function copyToClipBoard() {
     navigator.clipboard.writeText(finalUrl);
     toast.success("Copied to clipboard!");
@@ -20,7 +20,7 @@ function GeekForGeeks() {
     data: {
             "success": true,
             "username": "manuva05nv",
-            "institute": "Indian Institute of Information Technology Allahabad (IIIT Allahabad)",
+            "institute": "Indian Institute of Information Technology Allahabad",
             "codingScore": "119",
             "problemsSolved": "35",
             "contestRating": "__",
@@ -93,7 +93,7 @@ function GeekForGeeks() {
               generated URL.
             </li>
           </ul>
-          <h3 className="font-semibold mt-6 mb-2 text-blue-600 dark:text-cyan-400 text-lg">
+          <h3 className="font-semibold mt-6 mb-2 text-blue-600 dark:text-blue-400 text-lg">
             The JSON Response will look as follows:
           </h3>
           <div className="rounded-lg overflow-hidden shadow-lg border border-zinc-200 dark:border-zinc-700 my-4">

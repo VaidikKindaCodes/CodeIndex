@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { highlightCode } from "@/utils/shikiHighlighter";
+import { ArrowRightCircle, Copy } from "lucide-react";
 
 function Leetcode() {
   const [baseUrl, setBaseUrl] = useState("");
@@ -11,7 +12,7 @@ function Leetcode() {
     setBaseUrl(url);
   }, []);
 
-  const finalUrl = baseUrl + "/leetcode?username=<username>";
+  const finalUrl = baseUrl + "/api/leetcode?username=<username>";
   function copyToClipBoard() {
     navigator.clipboard.writeText(finalUrl);
     toast.success("copied to clipboard");
@@ -48,13 +49,120 @@ function Leetcode() {
   }, []);
 
   return (
-    <div className="min-h-screen w-full  backdrop-blur-md flex flex-col items-center p-8">
-      <div className="bg-white/90 dark:bg-zinc-900/80 shadow-xl rounded-2xl p-8 max-w-3xl w-full">
-        <h2 className="text-4xl text-center font-extrabold text-amber-500 dark:text-amber-300 mb-4 tracking-tight drop-shadow">
-          <span className="inline-block align-middle items-center mr-2 ">👑</span>
-          LeetCode API Documentation
-        </h2>
-        <p className="mt-3 max-w-2xl text-center text-lg text-zinc-700 dark:text-zinc-200">
+    // <div className="min-h-screen w-full  backdrop-blur-md flex flex-col items-center p-8">
+    //   <div className="bg-white/90 dark:bg-zinc-900/80 shadow-xl rounded-2xl p-8 max-w-3xl w-full">
+    //     <h2 className="text-4xl text-center font-extrabold text-amber-500 dark:text-amber-300 mb-4 tracking-tight drop-shadow">
+    //       <span className="inline-block align-middle items-center mr-2 ">👑</span>
+    //       LeetCode API Documentation
+    //     </h2>
+    //     <p className="mt-3 max-w-2xl text-center text-lg text-zinc-700 dark:text-zinc-200">
+    //       Effortlessly fetch and display your{" "}
+    //       <span className="font-semibold text-amber-600 dark:text-amber-400">
+    //         LeetCode
+    //       </span>{" "}
+    //       profile stats with our API. Retrieve your total problems solved and
+    //       more. Enter your LeetCode username below and copy the generated API
+    //       link.
+    //     </p>
+    //     <div className="mt-8 w-full max-w-xl mx-auto flex flex-col items-center">
+    //       <label
+    //         htmlFor="leetcode-link"
+    //         className="mb-2 font-medium text-lg text-zinc-800 dark:text-zinc-100"
+    //       >
+    //         LeetCode Profile API Link
+    //       </label>
+    //       <div className="flex w-full">
+    //         <input
+    //           id="leetcode-link"
+    //           type="text"
+    //           className="flex-1 px-4 py-2 rounded-l-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-400 dark:bg-zinc-800 dark:text-white"
+    //           placeholder={finalUrl}
+    //           disabled
+    //         />
+    //         <button
+    //           type="button"
+    //           className="px-4 py-2 bg-gradient-to-r from-amber-400 to-yellow-400 text-white rounded-r-md hover:from-amber-500 hover:to-yellow-500 transition font-semibold shadow"
+    //           onClick={copyToClipBoard}
+    //         >
+    //           Copy
+    //         </button>
+    //       </div>
+    //     </div>
+    //     <div className="mt-10 max-w-2xl mx-auto text-left text-base">
+    //       <h3 className="font-semibold mb-2 text-amber-600 dark:text-amber-400 text-lg">
+    //         Usage:
+    //       </h3>
+    //       <ul className="list-disc list-inside space-y-1 text-zinc-700 dark:text-zinc-200">
+    //         <li>
+    //           Replace{" "}
+    //           <span className="font-mono bg-zinc-100 dark:bg-zinc-800 px-1 rounded">
+    //             {"<username>"}
+    //           </span>{" "}
+    //           with your LeetCode username.
+    //         </li>
+    //         <li>
+    //           Send a <span className="font-semibold">GET</span> request to the
+    //           generated URL.
+    //         </li>
+    //       </ul>
+    //       <h3 className="font-semibold mt-6 mb-2 text-amber-600 dark:text-amber-400 text-lg">
+    //         The JSON Response will look as follows:
+    //       </h3>
+    //       <div className="rounded-lg overflow-hidden shadow-lg border border-zinc-200 dark:border-zinc-700 my-4">
+            
+    //         <div
+    //           className="shiki overflow-x-auto text-base leading-relaxed rounded-lg p-4 bg-gray-900 border border-gray-800"
+    //           style={{
+    //             fontFamily:
+    //               "Fira Mono, Menlo, Monaco, 'Courier New', monospace",
+    //           }}
+    //           dangerouslySetInnerHTML={{ __html: Html }}
+    //         />
+    //       </div>
+          
+    //       <p className="mt-8 max-w-2xl text-center text-lg text-zinc-700 dark:text-zinc-200">
+    //         Use this data to beautifully showcase your LeetCode coding stats on
+    //         your website!
+    //       </p>
+    //     </div>
+    //   </div>
+    // </div>
+    <div className="min-h-screen w-full backdrop-blur-md flex flex-col items-center p-8">
+      <div className="bg-white/90 dark:bg-neutral-900/80 shadow-xl rounded-2xl p-8 max-w-3xl w-full border border-neutral-200 dark:border-neutral-800">
+        
+        {/* Gradient Hero Badge */}
+        <div className="flex flex-col items-center mb-8">
+          <div className="relative flex items-center justify-center mb-4">
+            <span className="absolute -inset-1 blur-lg opacity-70 animate-pulse bg-gradient-to-r from-amber-400 via-pink-500 to-cyan-400 rounded-full" />
+            <span className="relative z-10 flex items-center gap-2 px-6 py-2 rounded-full bg-gradient-to-r from-zinc-900 via-zinc-800 to-zinc-900 border border-amber-400 shadow-lg">
+              <span className="text-3xl">👑</span>
+              <span className="text-amber-400">
+                <svg
+                  width="28"
+                  height="28"
+                  className="inline-block align-middle"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M12 2v20" />
+                  <path d="M5 12h14" />
+                  <path d="M2 12a10 10 0 0 1 20 0 10 10 0 0 1-20 0z" />
+                </svg>
+              </span>
+              <span className="text-3xl">✨</span>
+            </span>
+          </div>
+          <h2 className="font-extrabold text-transparent text-3xl md:text-4xl text-center bg-clip-text bg-gradient-to-r from-amber-400 via-pink-400 to-cyan-400 drop-shadow-neon">
+            LeetCode API Documentation
+          </h2>
+        </div>
+
+        {/* Intro Paragraph */}
+        <p className="mt-3 max-w-2xl text-center text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed">
           Effortlessly fetch and display your{" "}
           <span className="font-semibold text-amber-600 dark:text-amber-400">
             LeetCode
@@ -63,10 +171,12 @@ function Leetcode() {
           more. Enter your LeetCode username below and copy the generated API
           link.
         </p>
+
+        {/* API Link Input */}
         <div className="mt-8 w-full max-w-xl mx-auto flex flex-col items-center">
           <label
             htmlFor="leetcode-link"
-            className="mb-2 font-medium text-lg text-zinc-800 dark:text-zinc-100"
+            className="mb-2 font-medium text-lg text-neutral-800 dark:text-neutral-200"
           >
             LeetCode Profile API Link
           </label>
@@ -74,27 +184,32 @@ function Leetcode() {
             <input
               id="leetcode-link"
               type="text"
-              className="flex-1 px-4 py-2 rounded-l-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-400 dark:bg-zinc-800 dark:text-white"
+              className="flex-1 px-4 py-2 rounded-l-md border border-neutral-300 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-amber-400 dark:bg-neutral-800 dark:text-white"
               placeholder={finalUrl}
               disabled
             />
             <button
               type="button"
               className="px-4 py-2 bg-gradient-to-r from-amber-400 to-yellow-400 text-white rounded-r-md hover:from-amber-500 hover:to-yellow-500 transition font-semibold shadow"
-              onClick={copyToClipBoard}
+              onClick={() => {
+                copyToClipBoard();
+                toast.success("Copied to clipboard");
+              }}
             >
-              Copy
+              <Copy className="w-5 h-5" />
             </button>
           </div>
         </div>
+
+        {/* Usage Instructions */}
         <div className="mt-10 max-w-2xl mx-auto text-left text-base">
-          <h3 className="font-semibold mb-2 text-amber-600 dark:text-amber-400 text-lg">
-            Usage:
+          <h3 className="font-semibold mb-2 flex items-center gap-2 text-amber-600 dark:text-amber-400 text-lg">
+            <ArrowRightCircle className="w-5 h-5" /> Usage:
           </h3>
-          <ul className="list-disc list-inside space-y-1 text-zinc-700 dark:text-zinc-200">
+          <ul className="list-disc list-inside space-y-1 text-neutral-600 dark:text-neutral-400 leading-relaxed">
             <li>
               Replace{" "}
-              <span className="font-mono bg-zinc-100 dark:bg-zinc-800 px-1 rounded">
+              <span className="font-mono bg-neutral-100 dark:bg-neutral-800 px-1 rounded">
                 {"<username>"}
               </span>{" "}
               with your LeetCode username.
@@ -104,11 +219,12 @@ function Leetcode() {
               generated URL.
             </li>
           </ul>
+
+          {/* JSON Response Preview (Shiki untouched) */}
           <h3 className="font-semibold mt-6 mb-2 text-amber-600 dark:text-amber-400 text-lg">
             The JSON Response will look as follows:
           </h3>
-          <div className="rounded-lg overflow-hidden shadow-lg border border-zinc-200 dark:border-zinc-700 my-4">
-            
+          <div className="rounded-lg overflow-hidden shadow-lg border border-neutral-200 dark:border-neutral-700 my-4">
             <div
               className="shiki overflow-x-auto text-base leading-relaxed rounded-lg p-4 bg-gray-900 border border-gray-800"
               style={{
@@ -118,8 +234,9 @@ function Leetcode() {
               dangerouslySetInnerHTML={{ __html: Html }}
             />
           </div>
-          
-          <p className="mt-8 max-w-2xl text-center text-lg text-zinc-700 dark:text-zinc-200">
+
+          {/* Closing Paragraph */}
+          <p className="mt-8 max-w-2xl text-center text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed">
             Use this data to beautifully showcase your LeetCode coding stats on
             your website!
           </p>

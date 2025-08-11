@@ -2,7 +2,8 @@
 import React from 'react';
 import Sidebar from '@/components/Sidebar';
 import Navbar from '@/components/Navbar';
-import Overview from '@/components/docs-section/overview';
+import OverView from '@/components/docs-section/overview';
+
 
 function page() {
     return (
@@ -19,11 +20,11 @@ function page() {
             <div className="hidden lg:block">
                 <Sidebar />
             </div>
-            <main className="flex-1 p-8 text-white flex flex-col items-center justify-center relative z-10">
+            <main className="flex-1 p-8 text-white flex flex-col items-center justify-center relative z-10 h-full overflow-auto">
                 <div className="block lg:hidden w-full mb-4">
                     <Navbar />
                 </div>
-                <Overview />
+                <OverView/>
             </main>
         </div>
     );

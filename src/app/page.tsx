@@ -11,7 +11,7 @@ export default function Home() {
     setBaseUrl(url);
   }, []);
 
-  const finalUrl = baseUrl + "/<website>?username=<username>";
+  const finalUrl = baseUrl + "/api/<website>?username=<username>";
 
   function copyToclipboard (){
     navigator.clipboard.writeText(finalUrl);

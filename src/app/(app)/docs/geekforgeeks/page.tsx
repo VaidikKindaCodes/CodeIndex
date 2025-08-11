@@ -19,7 +19,7 @@ function page() {
             <div className="hidden lg:block">
                 <Sidebar />
             </div>
-            <main className="flex-1 p-8 text-white flex flex-col items-center justify-center relative z-10">
+            <main className="flex-1 p-8 text-white flex flex-col items-center justify-center relative z-10 h-full overflow-auto">
                 <div className="block lg:hidden w-full mb-4">
                     <Navbar />
                 </div>
