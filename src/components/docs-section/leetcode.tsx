@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { highlightCode } from "@/utils/shikiHighlighter";
-import { ArrowRightCircle, Copy } from "lucide-react";
+import { ArrowRightCircle } from "lucide-react";
+import Image from "next/image";
 
 function Leetcode() {
   const [baseUrl, setBaseUrl] = useState("");
@@ -148,6 +149,73 @@ function Leetcode() {
               dangerouslySetInnerHTML={{ __html: Html }}
             />
           </div>
+
+
+          {/* Image URL Input */}
+          <div className="mt-6 w-full max-w-xl mx-auto flex flex-col items-center">
+            <label
+              htmlFor="leetcode-image-link"
+              className="mb-2 font-medium text-sm sm:text-lg text-neutral-800 dark:text-neutral-200"
+            >
+              LeetCode Stats Image Link
+            </label>
+            <div className="flex flex-col sm:flex-row w-full">
+              <input
+                id="leetcode-image-link"
+                type="text"
+                className="flex-1 px-3 sm:px-4 py-2 rounded-t-md sm:rounded-l-md sm:rounded-t-none border border-neutral-300 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-amber-400 dark:bg-neutral-800 dark:text-white text-xs sm:text-sm"
+                placeholder={`${baseUrl}/api/leetcode/image?username=<username>`}
+                disabled
+              />
+              <button
+                type="button"
+                className="px-3 sm:px-4 py-2 bg-gradient-to-r from-amber-400 to-yellow-400 text-white rounded-b-md sm:rounded-r-md sm:rounded-b-none hover:from-amber-500 hover:to-yellow-500 transition font-semibold shadow text-xs sm:text-sm"
+                onClick={() => {
+                  navigator.clipboard.writeText(`${baseUrl}/api/leetcode/image?username=<username>`);
+                  toast.success("Copied image link to clipboard");
+                }}
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+
+          <h3 className="font-semibold mb-2 mt-10 flex items-center gap-2 text-amber-600 dark:text-amber-400 text-base sm:text-lg">
+            <ArrowRightCircle className="w-4 h-4 sm:w-5 sm:h-5" /> Usage:
+          </h3>
+          <ul className="list-disc list-inside space-y-1 text-neutral-600 dark:text-neutral-400 leading-relaxed">
+            <li>
+              Replace{" "}
+              <span className="font-mono bg-neutral-100 dark:bg-neutral-800 px-1 rounded text-xs sm:text-sm">
+                {"<username>"}
+              </span>{" "}
+              with your LeetCode username.
+            </li>
+            <li>
+              Optionally, you can add a background color by appending{" "}
+              <span className="font-mono bg-neutral-100 dark:bg-neutral-800 px-1 rounded text-xs sm:text-sm">
+                {"&bg=<color>"}
+              </span>{" "}
+              to the URL, where <span className="font-mono bg-neutral-100 dark:bg-neutral-800 px-1 rounded text-xs sm:text-sm">color</span> is a valid CSS color (e.g., <span className="font-mono bg-neutral-100 dark:bg-neutral-800 px-1 rounded text-xs sm:text-sm">%231e1e1e</span>  (%23 is basically #)).
+            </li>
+            <li>Send a <span className="font-semibold">GET</span> request to the generated URL.</li>
+          </ul>
+
+
+          <h3 className="font-semibold mt-6 mb-2 text-amber-600 dark:text-amber-400 text-base sm:text-lg">
+            The Image Response will look like this:
+          </h3>
+          <div className="rounded-lg overflow-hidden shadow-lg border border-neutral-200 dark:border-neutral-700 my-4">
+            <Image
+              width={600}
+              height={340}
+              src={`/leetcode.svg`}
+              alt="leetcode Stats"
+              className="w-full h-auto rounded-lg"
+            />
+          </div>
+
+
 
           {/* Closing Paragraph */}
           <p className="mt-6 text-center text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">

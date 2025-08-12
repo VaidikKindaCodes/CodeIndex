@@ -1,3 +1,4 @@
+import { retrieveLeetcodeData } from "@/lib/retrieveData/leetcode";
 import axios, { AxiosError } from "axios";
 
 export async function GET(request: Request) {
@@ -13,45 +14,21 @@ export async function GET(request: Request) {
       { status: 404 }
     );
   }
-
-  const query = `
-    query userProblemsSolved($username: String!) {
-      allQuestionsCount {
-        difficulty
-        count
-      }
-      matchedUser(username: $username) {
-        username
-        profile {
-          reputation
-          ranking
-        }
-        submitStats: submitStatsGlobal {
-          acSubmissionNum {
-            difficulty
-            count
-          }
-        }
-      }
-    }
-  `;
-
-  try {
-    const response = await axios.post(
-      "https://leetcode.com/graphql",
-      { query, variables: { username } },
-      { headers: { "Content-Type": "application/json" } }
-    );
-
-    return Response.json(response.data);
-  } catch (err) {
-    const error = err as AxiosError;
+  const data = await retrieveLeetcodeData(username)
+  if (data == null) {
     return Response.json(
       {
         success: false,
-        message: error.response?.data || error.message,
+        message: "User not found",
       },
-      { status: 500 }
+      { status: 404 }
     );
   }
+  return Response.json(
+    {
+      success: true,
+      data
+    }
+  )
+
 }

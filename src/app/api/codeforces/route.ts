@@ -1,3 +1,4 @@
+import { retrieveCodeforcesData } from "@/lib/retrieveData/codeforces";
 import axios, { AxiosError } from "axios";
 
 export async function GET(request: Request) {
@@ -13,52 +14,32 @@ export async function GET(request: Request) {
       { status: 404 }
     );
   }
-  try {
-    const { data } = await axios.get(`https://codeforces.com/api/user.info?handles=${username}`);
-    if (data.status !== "OK" || !data.result?.length) {
-      return Response.json(
-        {
-          success: false,
-          message: "user not found"
-        },
-        {
-          status: 404
-        }
-      );
-    }
-
-    const user = data.result[0];
-    const { handle, rating, maxRating, rank, maxRank } = user;
-    const submissionsRes = await axios.get(`https://codeforces.com/api/user.status?handle=${username}`);
-    let totalSolved = 0;
-    if (submissionsRes.data.status === "OK" && Array.isArray(submissionsRes.data.result)) {
-      const solvedSet = new Set<string>();
-      for (const sub of submissionsRes.data.result) {
-        if (sub.verdict === "OK" && sub.problem) {
-          const key = `${sub.problem.contestId}-${sub.problem.index}`;
-          solvedSet.add(key);
-        }
-      }
-      totalSolved = solvedSet.size;
-    }
-
+  const data = await retrieveCodeforcesData(username)
+  if (data == null) {
     return Response.json(
       {
-        success: true,
-        handle: handle,
-        rating: rating,
-        maxRating: maxRating,
-        rank: rank,
-        maxRank: maxRank,
-        totalSolved: totalSolved
+        success: false,
+        message: "User not found",
       },
-      { status: 200 }
+      { status: 404 }
     );
-
-  } catch (error) {
-    const axiosError = error as AxiosError;
-    return Response.json({
-      message: axiosError.response?.data,
-    });
   }
+  const rating = data.rating;
+  const maxRating = data.maxRating;
+  const rank = data.rank;
+  const totalSolved = data.totalSolved;
+  const maxRank = data.maxRank;
+  return Response.json(
+    {
+      success: true,
+      username: username,
+      rating: rating,
+      maxRating: maxRating,
+      rank: rank,
+      totalSolved: totalSolved,
+      maxRank: maxRank
+    },
+    { status: 200 }
+  );
+
 }

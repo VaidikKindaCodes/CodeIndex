@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { highlightCode } from "@/utils/shikiHighlighter";
+import Image from "next/image";
 
 function CodeChef() {
   const [baseUrl, setBaseUrl] = useState("");
@@ -65,7 +66,7 @@ function CodeChef() {
           >
             CodeChef Profile API Link
           </label>
-          <div className="flex flex-col sm:flex-row w-full gap-2">
+          <div className="flex flex-col sm:flex-row w-full ">
             <input
               id="leetcode-link"
               type="text"
@@ -114,6 +115,71 @@ function CodeChef() {
               dangerouslySetInnerHTML={{ __html: Html }}
             />
           </div>
+
+          {/* Image URL Input */}
+          <div className="mt-6 w-full mx-auto flex flex-col items-center">
+            <label
+              htmlFor="codechef-image-link"
+              className="mb-2 font-medium text-sm sm:text-lg text-neutral-800 dark:text-neutral-200"
+            >
+              Codechef Stats Image Link
+            </label>
+            <div className="flex flex-col sm:flex-row w-full">
+              <input
+                id="codechek-image-link"
+                type="text"
+                className="flex-1 px-3 sm:px-4 py-2 rounded-t-md sm:rounded-l-md sm:rounded-t-none border border-neutral-300 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-amber-400 dark:bg-neutral-800 dark:text-white text-xs sm:text-sm"
+                placeholder={`${baseUrl}/i/codechef?username=<username>`}
+                disabled
+              />
+              <button
+                type="button"
+                className="px-4 py-2 bg-gradient-to-r from-green-400 to-emerald-400 text-white rounded-md sm:rounded-r-md sm:rounded-l-none hover:from-green-500 hover:to-emerald-500 transition font-semibold shadow"
+                onClick={() => {
+                  navigator.clipboard.writeText(`${baseUrl}/i/codechef?username=<username>`);
+                  toast.success("Copied image link to clipboard");
+                }}
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+
+          <h3 className="font-semibold mb-2 mt-6 flex items-center gap-2 text-green-600 dark:text-green-400 text-base sm:text-lg">
+            📌 Usage:
+          </h3>
+          <ul className="list-disc list-inside space-y-1 text-neutral-600 dark:text-neutral-400 leading-relaxed">
+            <li>
+              Replace{" "}
+              <span className="font-mono bg-neutral-100 dark:bg-neutral-800 px-1 rounded text-xs sm:text-sm">
+                {"<username>"}
+              </span>{" "}
+              with your Codechef username.
+            </li>
+            <li>
+              Optionally, you can add a background color by appending{" "}
+              <span className="font-mono bg-neutral-100 dark:bg-neutral-800 px-1 rounded text-xs sm:text-sm">
+                {"&bg=<color>"}
+              </span>{" "}
+              to the URL, where <span className="font-mono bg-neutral-100 dark:bg-neutral-800 px-1 rounded text-xs sm:text-sm">color</span> is a valid CSS color (e.g., <span className="font-mono bg-neutral-100 dark:bg-neutral-800 px-1 rounded text-xs sm:text-sm">%231e1e1e</span>  (%23 is basically #)).
+            </li>
+            <li>Send a <span className="font-semibold">GET</span> request to the generated URL.</li>
+          </ul>
+
+
+          <h3 className="font-semibold mt-6 mb-2 flex items-center gap-2 text-green-600 dark:text-green-400  text-base sm:text-lg">
+            📦 The Image Response will look like this          </h3>
+          <div className="rounded-lg overflow-hidden shadow-lg border border-zinc-200 dark:border-zinc-700 my-4">
+            <Image
+              width={600}
+              height={340}
+              src={`/codechef.svg`}
+              alt="codechef Stats"
+              className="w-full h-auto rounded-lg"
+            />
+
+          </div>
+
 
           <p className="mt-8 text-center text-base sm:text-lg text-zinc-700 dark:text-zinc-200 leading-relaxed">
             Use this data to beautifully showcase your CodeChef coding stats on
