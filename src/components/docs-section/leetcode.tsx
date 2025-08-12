@@ -164,7 +164,7 @@ function Leetcode() {
                 id="leetcode-image-link"
                 type="text"
                 className="flex-1 px-3 sm:px-4 py-2 rounded-t-md sm:rounded-l-md sm:rounded-t-none border border-neutral-300 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-amber-400 dark:bg-neutral-800 dark:text-white text-xs sm:text-sm"
-                placeholder={`${baseUrl}/api/leetcode/image?username=<username>`}
+                placeholder={`${baseUrl}/i/leetcode?username=<username>`}
                 disabled
               />
               <button
