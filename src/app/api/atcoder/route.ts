@@ -1,3 +1,4 @@
+import { retrieveAtcoderData } from "@/lib/retrieveData/atcoder";
 import axios, { AxiosError } from "axios";
 import * as cheerio from "cheerio";
 
@@ -14,30 +15,28 @@ export async function GET(request: Request) {
       { status: 404 }
     );
   }
-  try {
-    const {data} = await axios.get(`http://atcoder.jp/users/${username}`);
-    const $ = cheerio.load(data);
-    const dlTable = $(".dl-table");
-    const ratingCell = dlTable.find("th:contains('Rating')").next("td").text();
-    const ratingMatch = ratingCell.match(/[\n\r]\s*(\d+)/);
-    const rating = ratingMatch ? ratingMatch[1] : "";
-    const rounds = dlTable.find("th:contains('Rated Matches')").next("td").text().trim();
-    const rank = dlTable.find("th:contains('Rank')").next("td").text().trim();
+  const data = await retrieveAtcoderData(username);
+  if (data == null) {
     return Response.json(
-        {
-            username: username,
-            rating:rating,
-            rank:rank,
-            rounds:rounds
-        },{
-            status: 200
-        }
-    )
-
-  } catch(error){
-    const errorAxios = error as AxiosError;
-    return Response.json({
-        message: errorAxios.response?.data
-    })
+      {
+        success: false,
+        message: "User not found",
+      },
+      { status: 404 }
+    );
   }
+  const rating = data.rating;
+  const rank = data.rank
+  const rounds = data.rounds;
+
+  return Response.json(
+    {
+      success: true,
+      username: username,
+      rating: rating,
+      rank: rank,
+      rounds: rounds
+    },
+    { status: 200 }
+  );
 }

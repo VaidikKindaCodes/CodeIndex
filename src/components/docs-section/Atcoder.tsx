@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { highlightCode } from "@/utils/shikiHighlighter";
+import Image from "next/image";
 
 export default function Atcoder() {
   const [baseUrl, setBaseUrl] = useState("");
@@ -57,12 +58,12 @@ export default function Atcoder() {
           >
             AtCoder Profile API Link
           </label>
-            <div className="flex flex-col sm:flex-row w-full max-w-xl">
+          <div className="flex flex-col sm:flex-row w-full ">
             <input
               id="atcoder-link"
               type="text"
               value={finalUrl}
-              readOnly
+              disabled
               className="flex-1 px-3 py-2 sm:px-4 sm:py-2 rounded-t-md sm:rounded-l-md sm:rounded-tr-none border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 dark:bg-zinc-800 dark:text-white text-sm sm:text-base overflow-x-auto break-all w-full"
             />
             <button
@@ -72,7 +73,7 @@ export default function Atcoder() {
             >
               Copy
             </button>
-            </div>
+          </div>
         </div>
 
         {/* Usage Section */}
@@ -105,6 +106,72 @@ export default function Atcoder() {
               dangerouslySetInnerHTML={{ __html: html }}
             />
           </div>
+
+          {/* Image URL Input */}
+          <div className="mt-6 w-full mx-auto flex flex-col items-center">
+            <label
+              htmlFor="atcoder-image-link"
+              className="mb-2 font-medium text-sm sm:text-lg text-neutral-800 dark:text-neutral-200"
+            >
+              AtCoder Stats Image Link
+            </label>
+            <div className="flex flex-col sm:flex-row w-full">
+              <input
+                id="atcoder-image-link"
+                type="text"
+                className="flex-1 px-3 sm:px-4 py-2 rounded-t-md sm:rounded-l-md sm:rounded-t-none border border-neutral-300 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-amber-400 dark:bg-neutral-800 dark:text-white text-xs sm:text-sm"
+                placeholder={`${baseUrl}/i/atcoder?username=<username>`}
+                disabled
+              />
+              <button
+                type="button"
+                className="px-3 sm:px-4 py-2 bg-gradient-to-r from-orange-400 to-amber-500 text-white rounded-b-md sm:rounded-r-md sm:rounded-bl-none hover:from-orange-500 hover:to-orange-500 transition font-semibold shadow text-sm sm:text-base w-full sm:w-auto"
+                onClick={() => {
+                  navigator.clipboard.writeText(`${baseUrl}/i/atcoder?username=<username>`);
+                  toast.success("Copied image link to clipboard");
+                }}
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+
+          <h3 className="font-semibold mt-6 mb-2 text-orange-500 dark:text-orange-300 text-lg">
+            Usage:
+          </h3>
+          <ul className="list-disc list-inside space-y-1 text-neutral-600 dark:text-neutral-400 leading-relaxed">
+            <li>
+              Replace{" "}
+              <span className="font-mono bg-neutral-100 dark:bg-neutral-800 px-1 rounded text-xs sm:text-sm">
+                {"<username>"}
+              </span>{" "}
+              with your AtCoder username.
+            </li>
+            <li>
+              Optionally, you can add a background color by appending{" "}
+              <span className="font-mono bg-neutral-100 dark:bg-neutral-800 px-1 rounded text-xs sm:text-sm">
+                {"&bg=<color>"}
+              </span>{" "}
+              to the URL, where <span className="font-mono bg-neutral-100 dark:bg-neutral-800 px-1 rounded text-xs sm:text-sm">color</span> is a valid CSS color (e.g., <span className="font-mono bg-neutral-100 dark:bg-neutral-800 px-1 rounded text-xs sm:text-sm">%231e1e1e</span>  (%23 is basically #)).
+            </li>
+            <li>Send a <span className="font-semibold">GET</span> request to the generated URL.</li>
+          </ul>
+
+
+          <h3 className="font-semibold mt-6 mb-2 text-orange-500 dark:text-amber-400 text-lg">
+            📦 The Image Response will look like this          </h3>
+          <div className="rounded-lg overflow-hidden shadow-lg border border-zinc-200 dark:border-zinc-700 my-4">
+            <Image
+              width={600}
+              height={340}
+              src={`/atcoder.svg`}
+              alt="LeetCode Stats"
+              className="w-full h-auto rounded-lg"
+            />
+
+          </div>
+
+
 
           <p className="mt-6 sm:mt-8 text-center text-base sm:text-lg text-zinc-700 dark:text-zinc-200">
             Use this data to beautifully showcase your AtCoder coding stats on your website!

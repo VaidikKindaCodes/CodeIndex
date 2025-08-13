@@ -1,5 +1,4 @@
-import axios, { AxiosError } from "axios";
-import * as cheerio from "cheerio";
+import { retrieveCodechefData } from "@/lib/retrieveData/codechef";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -14,32 +13,28 @@ export async function GET(request: Request) {
       { status: 404 }
     );
   }
-  try {
-    const { data } = await axios.get(
-      `https://www.codechef.com/users/${username}`
+  const data = await retrieveCodechefData(username)
+  if (data == null) {
+    return Response.json(
+      {
+        success: false,
+        message: "User not found",
+      },
+      { status: 404 }
     );
-    const $ = cheerio.load(data);
-    const rating = $(".rating-number").first().text().trim();
-    const stars = $(".rating-star").first().text().trim();
-    const solvedStrongTags = $(".rating-data-section.problems-solved strong")
-      .map((_, el) => parseInt($(el).text().trim()) || 0)
-      .get();
-
-    const totalSolvedText = $("h3:contains('Total Problems Solved')").first().text();
-    const totalSolvedMatch = totalSolvedText.match(/Total Problems Solved:\s*(\d+)/i);
-    const totalSolved = totalSolvedMatch ? parseInt(totalSolvedMatch[1], 10) : 0;
-
-    return Response.json({
+  }
+  const rating = data.rating;
+  const stars = data.stars;
+  const totalSolved = data.totalSolved;
+  return Response.json(
+    {
       success: true,
       username: username,
       rating: rating,
       stars: stars,
       totalSolved: totalSolved,
-    });
-  } catch (error) {
-    const axiosError = error as AxiosError;
-    return Response.json({
-      message: axiosError.response?.data,
-    });
-  }
+    },
+    { status: 200 }
+  );
 }
+

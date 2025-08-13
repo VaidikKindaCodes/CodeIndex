@@ -1,0 +1,25 @@
+
+    <svg width="600" height="260" xmlns="http://www.w3.org/2000/svg">
+      <style>
+        .bg { fill: #1e1e1e; }
+        .title { font: bold 32px sans-serif; fill: #ffb900; }
+        .label { font: 18px sans-serif; fill: #94a3b8; }
+        .value { font: 24px monospace; fill: #f8fafc; }
+        rect { rx: 16; ry: 16; }
+      </style>
+      <rect width="100%" height="100%" class="bg" />
+      <text x="50%" y="50" text-anchor="middle" class="title">AtCoder Stats</text>
+
+      <text x="40" y="100" class="label">Username:</text>
+      <text x="200" y="100" class="value">tourist</text>
+
+      <text x="40" y="140" class="label">Rating:</text>
+      <text x="200" y="140" class="value">4229</text>
+
+      <text x="40" y="180" class="label">Rank:</text>
+      <text x="200" y="180" class="value">1st</text>
+
+      <text x="40" y="220" class="label">Contests:</text>
+      <text x="200" y="220" class="value">66</text>
+    </svg>
+  

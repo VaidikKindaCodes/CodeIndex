@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { highlightCode } from "@/utils/shikiHighlighter";
+import Image from "next/image";
 
 function Codeforces() {
   const [baseUrl, setBaseUrl] = useState("");
@@ -42,7 +43,7 @@ function Codeforces() {
   return (
     <div className="min-h-screen w-full backdrop-blur-md flex flex-col items-center px-4 py-6 sm:px-6">
       <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-xl rounded-2xl p-6 sm:p-8 max-w-3xl w-full">
-        
+
         {/* Gradient badge */}
         <div className="inline-block mb-4 px-3 py-1 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 text-white text-sm font-semibold shadow">
           API Reference
@@ -123,6 +124,72 @@ function Codeforces() {
               dangerouslySetInnerHTML={{ __html: Html }}
             />
           </div>
+
+          {/* Image URL Input */}
+          <div className="mt-6 w-full max-w-xl mx-auto flex flex-col items-center">
+            <label
+              htmlFor="codeforces-image-link"
+              className="mb-2 font-medium text-sm sm:text-lg text-neutral-800 dark:text-neutral-200"
+            >
+              Codeforces Stats Image Link
+            </label>
+            <div className="flex flex-col sm:flex-row w-full">
+              <input
+                id="codeforces-image-link"
+                type="text"
+                className="flex-1 px-3 sm:px-4 py-2 rounded-t-md sm:rounded-l-md sm:rounded-t-none border border-neutral-300 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-amber-400 dark:bg-neutral-800 dark:text-white text-xs sm:text-sm"
+                placeholder={`${baseUrl}/i/codeforces?username=<username>`}
+                disabled
+              />
+              <button
+                type="button"
+                className="px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-lg sm:rounded-r-lg sm:rounded-l-none hover:from-blue-500 hover:to-blue-700 transition font-semibold shadow text-sm sm:text-base"
+                onClick={() => {
+                  navigator.clipboard.writeText(`${baseUrl}/i/codeforces?username=<username>`);
+                  toast.success("Copied image link to clipboard");
+                }}
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+
+          <h3 className="font-semibold mb-2 mt-6 text-blue-500 dark:text-blue-400 text-lg">
+            Usage:
+          </h3>
+          <ul className="list-disc list-inside space-y-1 text-neutral-600 dark:text-neutral-400 leading-relaxed">
+            <li>
+              Replace{" "}
+              <span className="font-mono bg-neutral-100 dark:bg-neutral-800 px-1 rounded text-xs sm:text-sm">
+                {"<username>"}
+              </span>{" "}
+              with your codeforces username.
+            </li>
+            <li>
+              Optionally, you can add a background color by appending{" "}
+              <span className="font-mono bg-neutral-100 dark:bg-neutral-800 px-1 rounded text-xs sm:text-sm">
+                {"&bg=<color>"}
+              </span>{" "}
+              to the URL, where <span className="font-mono bg-neutral-100 dark:bg-neutral-800 px-1 rounded text-xs sm:text-sm">color</span> is a valid CSS color (e.g., <span className="font-mono bg-neutral-100 dark:bg-neutral-800 px-1 rounded text-xs sm:text-sm">%231e1e1e</span>  (%23 is basically #)).
+            </li>
+            <li>Send a <span className="font-semibold">GET</span> request to the generated URL.</li>
+          </ul>
+
+
+          <h3 className="font-semibold mt-6 mb-2 text-blue-600 dark:text-blue-400 text-base sm:text-lg">
+            The Image Response will look like this:
+          </h3>
+          <div className="rounded-lg overflow-hidden shadow-lg border border-neutral-200 dark:border-neutral-700 my-4">
+            <Image
+              width={600}
+              height={340}
+              src={`/codeforces.svg`}
+              alt="codeforces Stats"
+              className="w-full h-auto rounded-lg"
+            />
+          </div>
+
+
 
           {/* Footer note */}
           <p className="mt-8 max-w-2xl text-center text-base sm:text-lg text-neutral-700 dark:text-neutral-300">
