@@ -171,7 +171,7 @@ function Leetcode() {
                 type="button"
                 className="px-3 sm:px-4 py-2 bg-gradient-to-r from-amber-400 to-yellow-400 text-white rounded-b-md sm:rounded-r-md sm:rounded-b-none hover:from-amber-500 hover:to-yellow-500 transition font-semibold shadow text-xs sm:text-sm"
                 onClick={() => {
-                  navigator.clipboard.writeText(`${baseUrl}/api/leetcode/image?username=<username>`);
+                  navigator.clipboard.writeText(`${baseUrl}/i/leetcode?username=<username>`);
                   toast.success("Copied image link to clipboard");
                 }}
               >
